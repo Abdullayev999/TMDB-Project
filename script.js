@@ -924,7 +924,7 @@ $('#href-top-rated-tv').click(async function() {
 
 async function getPopularActors(page = 1) {
     let dataActors = await (await fetch(`${baseUrl}/person/popular?api_key=${apiKey}&language=en-US&page=${page}`)).json();
-    totalPages = data.total_pages;
+    totalPages = dataActors.total_pages;
     page = 1;
 
     let list = $('.people .ListActors');
