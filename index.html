@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Movie Database</title>
+
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="icon" href="./images/iconp.png">
+    <script defer src="https://kit.fontawesome.com/113f611071.js" crossorigin="anonymous"></script>
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" charset="utf-8"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.min.js" charset="utf-8"></script>
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script defer src="./script.js"></script>
+</head>
+
+<body>
+
+    <div id="context" class="row">
+        <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home"><i class="fas fa-list"></i><label>Добавить в список</label></a>
+            <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home"><i class="fas fa-heart"></i><label>Избранное</label></a>
+            <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home"><i class="fas fa-bookmark"></i><label>Список отслеживания</label></a>
+            <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home"><i class="fas fa-star"></i><label>Ваш рейтинг</label></a>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01">
+        <div id="caption"></div>
+    </div>
+    <div class="blackFon"></div>
+
+    <nav id="navbarMenyu" class="navbar navbar-expand navbar-light bg-darkBlue fs-3 ">
+        <div class="container-fluid">
+
+            <div class="middle">
+                <img class="navbar-brand logo" id="returnHome" src="./images/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav fs-4 ">
+                        <a id="moviePage" class="nav-link  text-light" aria-current="page" href="#">Фильмы
+                            <div id="subMenyuMovie" hidden class=" nav-link subMenyu fs-4">
+                                <a class="nav-link" aria-current="page" id="href-popular" >Популярные</a>
+                        <a class="nav-link" id="href-look-now">Смотрят сейчас</a>
+                        <a class="nav-link" id="href-upcoming">Ожидаемые</a>
+                        <a class="nav-link" id="href-top-rated">Лучшие</a>
+                    </div>
+                    </a>
+
+                    <a id="serialPage" class="nav-link text-light" href="#">Сериалы
+                            <div id="subMenyuSerial" hidden class="nav-link subMenyu fs-4 ">
+                                <a class="nav-link" aria-current="page" id="href-tv-popular">Популярные</a>
+                    <a class="nav-link" id="href-airing-today">В эфире сегодня</a>
+                    <a class="nav-link" id="href-on-the-air">По телевидению</a>
+                    <a class="nav-link" id="href-top-rated-tv">Лучшие</a>
+                </div>
+                </a>
+                <a id="peoplePage" class="nav-link text-light" href="#">Люди
+                            <div id="subMenyuPeople" hidden class="nav-link subMenyu fs-4 ">
+                                <a class="nav-link" aria-current="page" id="href-popular-people">Популярные люди</a>
+            </div>
+            </a>
+            <a id="elsePage" class="nav-link text-light">Ещё
+                            <div id="subMenyuElse" hidden class=" nav-link subMenyu fs-4">
+                                <a class="nav-link" aria-current="page" href="#">Обсуждения</a>
+            <a class="nav-link" href="#">Доска почёта</a>
+            <a class="nav-link" href="#">Поддержки</a>
+            <a class="nav-link">API</a>
+        </div>
+        </a>
+        </div>
+
+        <div class="navbar-nav fs-4   ">
+            <a id="plusPage" class="nav-link text-light" aria-current="page" href="#"><i
+                                class="fas fa-plus">
+                                <div id="subMenyuPlus" hidden class=" nav-link subMenyu fs-4">
+                                    <a class="nav-link" aria-current="page" href="#">Добавить новый фильм</a>
+            <a class="nav-link" href="#">Добавить новый сериал</a>
+        </div>
+        </i>
+        </a>
+        <a class="nav-link text-light" href="#"><button type="button"
+                                class="btn btn-outline-light">RU</button></a>
+        <a class="nav-link text-light" href="#">Войти</a>
+        <a class="nav-link text-light">Присоединиться</a>
+        <a class="nav-link text-light searchBtn"><i class="fas fa-search "></i></a>
+        <a class="nav-link text-light XBtn"><i class="fas fa-times "></i></a>
+        </div>
+        </div>
+        </div>
+        </div>
+    </nav>
+
+    <div class="searchMovie">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Найти фильм , сериал , персону">
+        <i class="fas fa-times clearBtn"></i>
+    </div>
+
+    <div id="mainContent" class="container">
+        <div class="row mx-1">
+            <div class="col-sm-12 infoRow">
+                <img id="headImg" src="./images/forest.jpg">
+                <div class="full">
+                    <div class="content">
+                        <h1>Добро пожаловать. </h1>
+                        <h3>Миллионы фильмов, сериалов и людей. Исследуйте сейчас.</h3>
+
+                        <form>
+                            <input id="searchMovie" placeholder="Найти фильм , сериал , персону......" type="text">
+                            <button class="btnSearch">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 infoRow">
+                <label>Что популярно
+                    <div class="selector">
+                        <a id="select"></a>
+                        <a id="tv">По ТВ</a>
+                        <a id="cinema">По кинотеатрах</a>
+                    </div>
+                </label>
+                <div class="populars">
+
+
+
+                </div>
+            </div>
+            <div class="col-sm-12 infoRow">
+                <img id="backImg" src="./images/treiler.jpg">
+                <div class="full2">
+                </div>
+                <label>Последние трейлеры
+                    <div class="selector2">
+                        <a id="select2"></a>
+                        <a id="tv2">По ТВ</a>
+                        <a id="cinema2">По кинотеатрах</a>
+                    </div>
+                </label>
+                <div class="popularsTrails">
+                    <!-- <div class="item">
+                        <img src="./images/forest.jpg" alt="">
+                        <button class="contextBtn">º º º</button>
+                        <i class="fas fa-play play"></i>
+                        <p hidden>url</p>
+                        <h3>X</h3>
+                        <p>12 окт 2021</p>
+                    </div>
+                    <div class="item">
+                        <i class="fas fa-play play"></i>
+                        <img src="./images/forest.jpg" alt="">
+                        <button class="contextBtn">º º º</button>
+                        <p hidden>url</p>
+                        <h3>X</h3>
+                        <p>12 окт 2021</p>
+                    </div>
+                    <div class="item">
+                        <i class="fas fa-play play"></i>
+                        <img src="./images/forest.jpg" alt="">
+                        <button class="contextBtn">º º º</button>
+                        <p hidden>url</p>
+                        <h3>X</h3>
+                        <p>12 окт 2021</p>
+                    </div> -->
+                </div>
+            </div>
+
+
+            <div class="col-sm-12 infoRow">
+                <img id="back" src="./images/back.svg">
+                <label>В тренде
+                    <div class="selector3">
+                        <a id="select3"></a>
+                        <a id="tv3">Сегодня</a>
+                        <a id="cinema3">На этой неделе</a>
+                    </div>
+                </label>
+                <div class="trends">
+
+                </div>
+            </div>
+            <div class="col-sm-12 infoRow">
+
+                <div class="info">
+                    <h1>Доска почёта</h1>
+                    <div class="changes">
+                        <p class="icons">🟢</p>
+                        <p>Изменения за всё время</p>
+                        <p class="icons">🟠</p>
+                        <p>Изменения за неделю</p>
+                    </div>
+                </div>
+                <div class="statistic">
+                    <div class="userPopular">
+                        <img class="profileIcon" src="./images/f.png">
+                        <div class="data">
+                            <h1>firekos</h1>
+                            <span class="voice"><div class="green"></div><label class="greenCount">51.534</label></span>
+                            <span class="voice"><div class="red"></div><label  class="redCount">350.121</label></span>
+                        </div>
+                    </div>
+
+                    <div class="userPopular">
+                        <img class="profileIcon" src="./images/banana.jpg">
+                        <div class="data">
+                            <h1>Banana</h1>
+                            <span class="voice"><div class="green"></div><label class="greenCount">549.589</label></span>
+                            <span class="voice"><div class="red"></div><label  class="redCount">321.431</label></span>
+                        </div>
+                    </div>
+
+                    <div class="userPopular">
+                        <img class="profileIcon" src="./images/helim.jpeg">
+                        <div class="data">
+                            <h1>heli5m</h1>
+                            <span class="voice"><div class="green"></div><label class="greenCount">59.456</label></span>
+                            <span class="voice"><div class="red"></div><label  class="redCount">210.718</label></span>
+                        </div>
+                    </div>
+
+                    <div class="userPopular">
+                        <img class="profileIcon" src="./images/r.png">
+                        <div class="data">
+                            <h1>RenzhipengBot</h1>
+                            <span class="voice"><div class="green"></div><label class="greenCount">35.354</label></span>
+                            <span class="voice"><div class="red"></div><label  class="redCount">140.839</label></span>
+                        </div>
+                    </div>
+
+                    <div class="userPopular">
+                        <img class="profileIcon" src="./images/ro.png">
+                        <div class="data">
+                            <h1>RazieWod</h1>
+                            <span class="voice"><div class="green"></div><label class="greenCount">35.123</label></span>
+                            <span class="voice"><div class="red"></div><label  class="redCount">131.234</label></span>
+                        </div>
+                    </div>
+
+                    <div class="userPopular">
+                        <img class="profileIcon" src="./images/mafia.jpg">
+                        <div class="data">
+                            <h1>MaFia</h1>
+                            <span class="voice"><div class="green"></div><label class="greenCount">59.456</label></span>
+                            <span class="voice"><div class="red"></div><label  class="redCount">110.718</label></span>
+                        </div>
+                    </div>
+
+                    <div class="userPopular">
+                        <img class="profileIcon" src="./images/p.png">
+                        <div class="data">
+                            <h1>pingu51</h1>
+                            <span class="voice"><div class="green"></div><label class="greenCount">35.567</label></span>
+                            <span class="voice"><div class="red"></div><label  class="redCount">110.231</label></span>
+                        </div>
+                    </div>
+
+                    <div class="userPopular">
+                        <img class="profileIcon" src="./images/s.png">
+                        <div class="data">
+                            <h1>Sooze</h1>
+                            <span class="voice"><div class="green"></div><label class="greenCount">58.342</label></span>
+                            <span class="voice"><div class="red"></div><label  class="redCount">105.456</label></span>
+                        </div>
+                    </div>
+
+                    <div class="userPopular">
+                        <img class="profileIcon" src="./images/m.png">
+                        <div class="data">
+                            <h1>MuhammedShoaib</h1>
+                            <span class="voice"><div class="green"></div><label class="greenCount">35.567</label></span>
+                            <span class="voice"><div class="red"></div><label  class="redCount">110.231</label></span>
+                        </div>
+                    </div>
+
+                    <div class="userPopular">
+                        <img class="profileIcon" src="./images/tonAngel.jpg">
+                        <div class="data">
+                            <h1>TonAngel</h1>
+                            <span class="voice"><div class="green"></div><label class="greenCount">58.342</label></span>
+                            <span class="voice"><div class="red"></div><label  class="redCount">94.456</label></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ///////////////////////////////////////////////////////////////// -->
+
+    <div class="container querys">
+        <div class="row">
+            <div class="col-3 listQueryTitle">
+                <div class="querySearchTitle">
+                    Результаты поиска
+                </div>
+                <div class="selectQuery active  queryMovie">
+                    <p>Фильмы</p>
+                    <p>0</p>
+                </div>
+                <div class="selectQuery queryTv">
+                    <p>Сериалы</p>
+                    <p>0</p>
+                </div>
+                <div class="selectQuery  queryPerson">
+                    <p>Люди</p>
+                    <p>0</p>
+                </div>
+                <div class="selectQuery  queryKeyword">
+                    <p>Ключевые слова</p>
+                    <p>0</p>
+                </div>
+                <div class="selectQuery  queryCompany">
+                    <p>Компании</p>
+                    <p>0</p>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="queryList">
+                </div>
+                <button id="downloadMoreQuery" class="w-100 btn btn-primary mr-5">Загрузить ещё</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ///////////////////////////////////////////////////////////////// -->
+
+
+    <div class="container actorDetail">
+        <div class="row py-2 m-0">
+            <div class="col-3 ">
+                <div class="left">
+                    <div class="img">
+                        <i id="ok" class="fas fa-expand-arrows-alt"></i>
+                        <img id="fontImg" src="./images/forest.jpg">
+                    </div>
+                    <h5 class="pt-2  mx-2">Персональная информация</h5>
+                    <div class="actorPerson mx-2">
+                        <b>Известность за</b>
+                        <p id="known-for-department">Acting</p>
+                        <b>Пол</b>
+                        <p id="gender">Acting</p>
+                        <b>Дата рождения</b>
+                        <p id="bday">Acting</p>
+                        <b>Место рождения</b>
+                        <p id="place-of-birth">Acting</p>
+                        <b>Также известность как</b>
+                        <div id="anothrer-name"></div>
+                    </div>
+
+                    <button class="editbtn mb-4">EDIT PAGE</button>
+                    <p>⌨ <a>Keyboard Shortcuts</a></p>
+                    <p>💭 <a> Report an Issue</a></p>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="right">
+                    <h1 id="actorName" class="mb-4">Tony Leung Chiu-wai</h1>
+                    <h5>Биография</h5>
+                    <p id="bio">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque debitis vitae quod libero autem, eveniet dolore cupiditate sint repudiandae beatae voluptates dignissimos reiciendis quaerat, consectetur magnam. Corporis, maxime. Dolorem
+                        repellendus perspiciatis quod tenetur quae recusandae fugit quibusdam expedita ea asperiores similique veritatis eaque labore fuga facere sequi iure, at non a! Quaerat, impedit. Amet quis beatae soluta reiciendis minus, at repudiandae
+                        debitis alias odio facere ab quidem aspernatur doloremque illo tenetur nihil labore modi! Iusto recusandae fugit, numquam tempore nobis fugiat facere suscipit iste cumque ullam deserunt quasi at facilis eligendi, soluta inventore
+                        commodi maiores quidem magni adipisci tenetur distinctio?</p>
+
+                    <br>
+                    <h2 class="mt-3 text-start">Известность за</h2>
+                    <div class="col-sm-12 infoRow">
+
+                        <div class="left">
+                            <div class="ListMovieForActors">
+
+                            </div>
+
+                            <h3 class="mt-5">Актёрское искусство</h3>
+                            <div class="history my-3">
+                                <table id="actorHistory">
+
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ///////////////////////////////////////////////////////////////// -->
+
+
+    <div id="detailContent" class="detailMovie">
+
+        <div id="imgPath" class="container-fluid">
+            <div class="blur"></div>
+            <div class="row">
+                <div class="col-sm-12 infoRows">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="img">
+                                <i id="ok" class="fas fa-expand-arrows-alt"></i>
+                                <img class="zoomCinema" id="fontImg">
+                            </div>
+                            <div class="translation">
+                                <img src="./images/m.png">
+                                <div class="content">
+                                    <p><small>Сейчас транслируется</small></p>
+                                    <p>Смотреть сейчас</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <br>
+                            <h1><b id="detail-name">Адреналин 2: Высокое напряжение</b></h1>
+                            <h3 id="detail-year">(2009)</h3>
+                            <span>   <label id="relase">16/04/2009 (RU)</label> • <label id="ganres"></label> • <label id="runtime">  </label> </span>
+                            <div class="icons">
+                                <div class="progresBar">
+                                    <div class="box">
+                                        <div class="chart" data-percent="0">0</div>
+                                    </div>
+                                </div>
+                                <br>
+                                <p>Пользовательский<br>счёт</p><br>
+                                <i class="fas fa-bars"></i>
+                                <i class="fas fa-heart"></i>
+                                <i class="fas fa-bookmark"></i>
+                                <i class="fas fa-star"></i>
+
+                                <span id="lookTrailer"><i class="fas fa-play"></i>Воспроизвести трейлер
+                                    <p id="url" hidden></p>
+                                </span>
+                            </div>
+
+                            <p><b>Обзор</b></p>
+                            <p id="overview"> </p>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="detailMovie" class="container">
+            <div class="row">
+                <br>
+                <h2 class="mt-3">В главных ролях</h2>
+                <div class="col-sm-12 infoRow">
+
+                    <div class="left">
+                        <div class="ListActors">
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="icons">
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-facebook-square"></i>
+                            <i class="fab fa-twitter"></i>
+                        </div>
+
+
+
+
+                        <br>
+                        <b>Бюджет</b>
+                        <small id="budget"></small>
+                        <br>
+                        <b>Популярность</b>
+                        <small id="popularity">Venom: Let There Be Carnage</small>
+                        <br>
+                        <b>Ссылка</b>
+                        <a target="_blank" id="link"></a>
+                        <br>
+                        <b>Статус</b>
+                        <small id="status"></small>
+                        <br>
+                        <b>Родноя язык</b>
+                        <small id="original_language"></small>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="zoomPhoto" class="div">
+            <img id="zoomMovie">
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+
+
+    <!-- ///////////////////////////////////////////////////////////////// -->
+
+
+
+    <div class="container searchResult">
+        <div class="row movie-tv">
+            <div class="col-3">
+                <h4 class="my-4">Популярные фильмы</h4>
+                <div class="accordion">
+                    <div class="comboBox">
+                        <div class="head">
+                            <b>Сортировать</b>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="content">
+                            <p>Сортировать результаты по</p>
+                            <select class="btn btn-secondary">
+                                <option selected>Популярности (убывание)</option>
+                                <option>Популярности (возрастание)</option>
+                                <option>Рейтингу (убывание)</option>
+                                <option>Рейтингу (возрастание)</option>
+                                <option>Дате выпуска (убывание)</option>
+                                <option>Дате выпуска (возрастание)</option>
+                                <option>Названию (А-Я)</option>
+                                <option>Названию (Я-А)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="comboBox">
+                        <div class="head">
+                            <b>Фильтры</b>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="content">
+                            <p>Показать мне</p>
+                            <hr>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Все
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Фильмы, которые я не видел
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Просмотренные фильмы
+                                </label>
+                            </div>
+                            <br>
+                            <p>Возможность просмотра</p>
+                            <hr>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled">
+                                <label class="form-check-label" for="flexCheckDisabled">
+                                    Искать все возможности просмотра?
+                                </label>
+                            </div>
+                            <br>
+
+                            <p>Даты выхода</p>
+                            <hr>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled">
+                                <label class="form-check-label" for="flexCheckDisabled">
+  Искать все релизы?
+                                </label>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-2">
+                                    <small>от</small>
+                                </div>
+                                <div class="col-10">
+                                    <input type="date">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-2">
+                                    <small>до</small>
+                                </div>
+                                <div class="col-10">
+                                    <input type="date">
+                                </div>
+                            </div>
+                            <br>
+
+                            <p>Жанры</p>
+                            <hr>
+                            <div class="flex-column genre">
+                                <label class="white">боевик</label>
+                                <label class="white">вестерн</label>
+                                <label class="white">военный</label>
+                                <label class="white">детектив</label>
+                                <label class="white">документальный</label>
+                                <label class="white">драма</label>
+                                <label class="white">история</label>
+                                <label class="white">комедия</label>
+                                <label class="white">криминал</label>
+                                <label class="white">мелодрама</label>
+                                <label class="white">музыка</label>
+                                <label class="white">мультфильм</label>
+                                <label class="white">приключения</label>
+                                <label class="white">семейный</label>
+                                <label class="white">телевизионный фильм</label>
+                                <label class="white">триллер</label>
+                                <label class="white">ужасы</label>
+                                <label class="white">фантастика</label>
+                                <label class="white">фэнтези</label>
+                            </div>
+
+                            <br>
+
+                            <p>Сертификация</p>
+                            <hr>
+                            <div class="flex-column sertificat">
+                                <label class="white">NR</label>
+                                <label class="white">0+</label>
+                                <label class="white">6+</label>
+                                <label class="white">12+</label>
+                                <label class="white">16+</label>
+                                <label class="white">18+</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comboBox">
+                        <div class="head">
+                            <b>Где посмотреть</b>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="content">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, laudantium?
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-9">
+                <div id="viewMovies" class="row mt-5 ml-1 ">
+
+                </div>
+                <button id="downloadMore" class="w-100 btn btn-primary mr-5">Загрузить ещё</button>
+            </div>
+        </div>
+
+        <div class="row people">
+            <div class="ListActors">
+            </div>
+            <button id="downloadMorePeople" class="w-100 btn btn-primary mr-5">Загрузить ещё</button>
+        </div>
+    </div>
+
+    <!-- ///////////////////////////////////////////////////////////////// -->
+
+    <div id="footer" class="container-fluid">
+        <footer class="row row-cols-5 p-5 border-top">
+            <div id="iconAndEnter" class="col">
+                <img src="./images/iconka.svg">
+                <button><b>ВСТУПИТЬ В СООБЩЕСТВО</b></button>
+            </div>
+
+
+            <div class="col">
+                <h5><b>ГЛАВНОЕ</b></h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a href="#" class="nav-link p-0 text-white">О TMDB</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link p-0 text-white">Связаться с нами</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link p-0 text-white">Форумы поддержки</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link p-0 text-white">API</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link p-0 text-white">Статус системы</a></li>
+                </ul>
+            </div>
+
+            <div class="col">
+                <h5><b>УЧАСТВУЙТЕ</b></h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a href="#" class="nav-link p-0 text-white">Писание об участии</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link p-0 text-white">Сторонние приложения</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link p-0 text-white">Добавить новый фильм</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link p-0 text-white">Добавить новый сериал</a></li>
+                </ul>
+            </div>
+
+            <div class="col">
+                <h5><b>СООБЩЕСТВО</b></h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a href="#" class="nav-link p-0 text-white">Руководства</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link p-0 text-white">Обсуждения</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link p-0 text-white">Доска почёта</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link p-0 text-white">Twitter</a></li>
+                </ul>
+            </div>
+
+            <div class="col">
+                <h5><b>О ПРАВЕ</b></h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a href="#" class="nav-link p-0 text-white">Условия использования</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link p-0 text-white">API Правила использования</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link p-0 text-white">Политика конфиденциальности</a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+
+
+    <!-- ///////////////////////////////////////////////////////////////// -->
+
+
+    <template id="templateHtmlCinema">
+        <div class="item">
+            <img data-id="{{id}}" data-type="movie" src="https://image.tmdb.org/t/p/w500/{{poster_path}}" alt="">
+            <button class="contextBtn">º º º</button>
+            <div class="progresBar">
+                <div class="box">
+                    <div class="chart" data-percent="{{vote_average}}">{{vote_average}}%</div>
+                </div>
+            </div>
+            <h3>{{original_title}}{{name}}</h3>
+            <p>{{release_date}}{{first_air_date}}</p>
+        </div>
+    </template>
+
+
+    <template id="templateQueyMovie">
+        <div class="queryResult">
+            <img  data-id="{{id}}" data-type="movie"  src="{{poster_path}}">
+            <div class="info">
+                <h5>{{original_title}}</h5>
+                <small>{{release_date}}</small>
+                <p id="description">{{overview}}</p>
+            </div>
+        </div>
+    </template>
+    <template id="templateQueyTv">
+        <div class="queryResult">
+            <img  data-id="{{id}}" data-type="tv"  src="{{poster_path}}">
+            <div class="info">
+                <h5>{{name}}</h5>
+                <small>{{first_air_date}}</small>
+                <p id="description">{{overview}}</p>
+            </div>
+        </div>
+    </template>
+    <template id="templateQueyPeople">
+        <div class="queryResult">
+            <img  data-id="{{id}}" data-type="person"  src="./images/person.png">
+            <div class="info">
+                <h5>{{name}}</h5> 
+                <p id="description">Gender : {{gender}}</p>
+            </div>
+        </div>
+    </template>
+
+    <template id="templateMovie">
+        <div class="item col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+            <img data-id="{{id}}" data-type="movie" src="https://image.tmdb.org/t/p/w500/{{poster_path}}" alt="">
+            <button class="contextBtn">º º º</button>
+            <div class="progresBar">
+                <div class="box">
+                    <div class="chart" data-percent="{{vote_average}}">{{vote_average}}%</div>
+                </div>
+            </div>
+            <p class="mt-3">{{original_title}}{{name}}</p>
+            <small>{{release_date}}{{first_air_date}}</small>
+        </div>
+    </template>
+    <template id="templateTv">
+        <div class="item col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+            <img data-id="{{id}}" data-type="tv" src="https://image.tmdb.org/t/p/w500/{{poster_path}}" alt="">
+            <button class="contextBtn">º º º</button>
+            <div class="progresBar">
+                <div class="box">
+                    <div class="chart" data-percent="{{vote_average}}">{{vote_average}}%</div>
+                </div>
+            </div>
+            <p class="mt-3">{{original_title}}{{name}}</p>
+            <small>{{release_date}}{{first_air_date}}</small>
+        </div>
+    </template>
+
+    <template id="templateActor">
+        <div class="actor  col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+            <div class="top">
+                <img data-id="{{id}}" data-type="person" src="https://image.tmdb.org/t/p/w500/{{profile_path}}" alt="">
+            </div>
+            <div class="text">
+                <b>{{name}}</b>
+                <p>gender : {{gender}}</p>
+                <p>popularity : {{popularity}}</p>
+            </div>
+        </div>
+    </template>
+
+
+
+
+    <template id="templateActorsMovie">
+        <div class="infoByActor">
+            <img data-id="{{id}}" data-type="movie"  src="{{poster_path}}">
+            <p class="text-center m-0 p-0">{{original_title}}</p>
+            <small>(movie)</small>
+        </div> 
+    </template>
+
+
+
+
+
+    <template id="templateActorsTv">
+        <div class="infoByActor">
+            <img data-id="{{id}}" data-type="tv"  src="{{poster_path}}">
+            <p class="text-center m-0 p-0">{{original_name}}</p>
+            <small>(tv)</small>
+        </div> 
+    </template>
+
+    <template id="templateActors">
+        <div class="actor">
+            <div class="top">
+                <img data-id="{{id}}" data-type="person"  src="https://image.tmdb.org/t/p/w500/{{profile_path}}" alt="">
+            </div>
+            <div class="text">
+                <b>{{name}}</b>
+                <p>gender : {{gender}}</p>
+                <p>popularity : {{popularity}}</p>
+            </div>
+        </div>
+    </template>
+
+
+
+
+    <template id="templateHtmlTv">
+        <div class="item">
+            <img data-id="{{id}}" data-type="tv" src="https://image.tmdb.org/t/p/w500/{{poster_path}}" alt="">
+            <button class="contextBtn">º º º</button>
+            <div class="progresBar">
+                <div class="box">
+                    <div class="chart" data-percent="{{vote_average}}">{{vote_average}}%</div>
+                </div>
+            </div>
+            <h3>{{original_name}}</h3>
+            <p>{{first_air_date}}</p>
+        </div>
+    </template>
+
+    <template id="templateHtmlTrail">
+        <div class="item">
+            <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}" alt="">
+            <button class="contextBtn">º º º</button>
+            <i class="fas fa-play play"></i>
+            <p id="url" hidden>https://www.youtube.com/embed/{{key}}</p>
+            <h3>{{name}}</h3>
+            <p>{{published_at}}</p>
+        </div>
+    </template>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="circleProgressBar.js"></script>
+
+</body>
+
+</html>
