@@ -63,24 +63,24 @@ async function getPopularTv() {
 }
 
 
-$('#tv').click(function(e) {
+$('#tv').click(async function(e) {
     e.preventDefault();
 
     $('#select').animate({ left: '0' }, 370);
     $('#tv').css('color', '#8FF1C3');
     $('#cinema').css('color', 'black');
 
-    getPopularTv();
+    await getPopularTv();
 });
 
-$('#cinema').click(function(e) {
+$('#cinema').click(async function(e) {
     e.preventDefault();
 
     $('#select').animate({ left: '173' }, 370);
     $('#cinema').css('color', '#8FF1C3');
     $('#tv').css('color', 'black');
 
-    getPopularCinema();
+    await getPopularCinema();
 });
 
 async function getTrendsToday() {
@@ -344,6 +344,8 @@ $('#lookTrailer').click(function() {
 $('#returnHome').click(function() {
     $('#mainContent').show();
     $('#detailContent').hide();
+    $('.searchResult').hide();
+    $('.actorDetail').hide();
     $('.querys').hide();
 });
 
@@ -666,7 +668,7 @@ async function getInfo(id, type) {
             let template = Handlebars.compile(templateHtml);
 
 
-            $('#actorHistory').html();
+            $('#actorHistory').html("");
 
 
             for (const movie of movie_credits.cast) {
@@ -1446,7 +1448,7 @@ function modalWindow(params) {
 
 async function AfterLoad() {
     statisticUser();
-    getPopularTv();
+    await getPopularTv();
     getTrendsToday();
     await getTrailsBy("tv");
     $('.XBtn').hide();

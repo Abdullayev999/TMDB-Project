@@ -667,7 +667,6 @@ body {
 }
 
 .infoRow:nth-child(3) label {
-  font-size: 30px;
   font-weight: bold;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -684,6 +683,8 @@ body {
   z-index: 999;
   font-size: 35px;
   padding-left: 70px;
+  width: auto;
+  font-size: 25px;
 }
 
 .infoRow:nth-child(3) label .selector2 {
@@ -707,7 +708,7 @@ body {
 .infoRow:nth-child(3) label .selector2 a {
   position: relative;
   width: 100%;
-  font-size: 20px;
+  font-size: 15px;
   text-align: center;
 }
 
@@ -1078,7 +1079,7 @@ body {
   background-color: #025C80;
   width: 100%;
   color: white;
-  min-width: 850px;
+  min-width: 744px;
 }
 
 body {
@@ -1124,6 +1125,13 @@ footer .col:nth-child(5) {
   top: 0px;
 }
 
+@media (max-width: 776px) {
+  #navbarMenyu {
+    width: 720px;
+    overflow-inline: hidden;
+  }
+}
+
 .searchMovie {
   position: -webkit-sticky;
   position: sticky;
@@ -1137,6 +1145,12 @@ footer .col:nth-child(5) {
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
+}
+
+@media (max-width: 576px) {
+  .bg-darkBlue {
+    width: 723px;
+  }
 }
 
 .subMenyu {
@@ -1180,6 +1194,7 @@ footer .col:nth-child(5) {
 
 #subMenyuSerial {
   margin-left: 90px;
+  position: absolute;
 }
 
 #subMenyuPeople {
@@ -2461,5 +2476,10 @@ footer .col:nth-child(5) {
 #context a:hover {
   background-color: #000000;
   color: white;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 /*# sourceMappingURL=style.css.map */

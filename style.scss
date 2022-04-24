@@ -503,7 +503,6 @@ body {
         }
     }
     label {
-        font-size: 30px;
         font-weight: bold;
         display: flex;
         align-items: center;
@@ -515,6 +514,8 @@ body {
         z-index: 999;
         font-size: 35px;
         padding-left: 70px;
+        width: auto;
+        font-size: 25px;
         .selector2 {
             position: relative;
             z-index: 5;
@@ -529,7 +530,7 @@ body {
             a {
                 position: relative;
                 width: 100%;
-                font-size: 20px;
+                font-size: 15px;
                 text-align: center;
             }
             #tv2 {
@@ -798,7 +799,7 @@ body {
     background-color: #025C80;
     width: 100%;
     color: white;
-    min-width: 850px;
+    min-width: 744px;
 }
 
 body {
@@ -834,6 +835,10 @@ footer {
     position: sticky;
     z-index: 999;
     top: 0px;
+    @media (max-width: 776px) {
+        width: 720px;
+        overflow-inline: hidden;
+    }
 }
 
 .searchMovie {
@@ -846,6 +851,12 @@ footer {
 .bg-darkBlue {
     background-color: #032541;
     height: max-content;
+    // @media (max-width: 750px) {
+    //     width: fit-content;
+    // }
+    @media (max-width: 576px) {
+        width: 723px;
+    }
 }
 
 .subMenyu {
@@ -877,6 +888,7 @@ footer {
 
 #subMenyuSerial {
     margin-left: 90px;
+    position: absolute;
 }
 
 #subMenyuPeople {
@@ -1852,4 +1864,8 @@ footer {
         background-color: #000000;
         color: white;
     }
+}
+
+* {
+    box-sizing: border-box;
 }
